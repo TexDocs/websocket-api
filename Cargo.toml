@@ -3,4 +3,18 @@ name = "rtvcs"
 version = "0.1.0"
 authors = ["Til Blechschmidt <til@blechschmidt.de>"]
 
+[features]
+default = ["wasm"]
+wasm = ["stdweb"]
+
+[lib]
+name = "rtvcs"
+path = "src/lib.rs"
+
+[[bin]]
+name = "rtvcs-web"
+path = "src/web.rs"
+required-features = ["wasm"]
+
 [dependencies]
+stdweb = { version = "0.2.0", optional = true }
