@@ -1,5 +1,5 @@
 [package]
-name = "rtvcs"
+name = "websocket_api"
 version = "0.1.0"
 authors = ["Til Blechschmidt <til@blechschmidt.de>"]
 
@@ -8,11 +8,11 @@ default = ["wasm"]
 wasm = ["stdweb"]
 
 [lib]
-name = "rtvcs"
+name = "websocket_api"
 path = "src/lib.rs"
 
 [[bin]]
-name = "rtvcs-web"
+name = "websocket_api_web"
 path = "src/web.rs"
 required-features = ["wasm"]
 
