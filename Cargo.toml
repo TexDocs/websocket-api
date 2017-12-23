@@ -5,11 +5,13 @@ authors = ["Til Blechschmidt <til@blechschmidt.de>"]
 
 [features]
 default = ["wasm"]
+create_project = ["uuid/v4"]
 wasm = ["stdweb"]
 
 [lib]
 name = "websocket_api"
 path = "src/lib.rs"
+required-features = ["create_project"]
 
 [[bin]]
 name = "websocket_api_web"
@@ -18,3 +20,7 @@ required-features = ["wasm"]
 
 [dependencies]
 stdweb = { version = "0.2.0", optional = true }
+uuid = { version = "0.5", features = ["serde"] }
+serde = "1.0.24"
+serde_derive = "1.0.24"
+rmp-serde = "0.13.7"
