@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Til Blechschmidt <til@blechschmidt.de>"]
 
 [features]
-default = []
+default = ["wasm"]
 create_project = ["uuid/v4"]
 wasm = ["stdweb"]
 
