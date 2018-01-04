@@ -1,24 +1,25 @@
 use uuid::Uuid;
 #[cfg(feature = "wasm")]
 use stdweb::unstable::TryFrom;
-use rmps::to_vec;
 
-pub const PROJECT_REQUEST_IDENTIFIER: u8 = 0;
+use identifier;
+use serialize::serialize;
+
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct ProjectRequest {
     pub id: Uuid
 }
 
 impl ProjectRequest {
-    pub fn new(id: Uuid) -> Vec<u8> {
-        let req = ProjectRequest { id };
-        let mut vec = to_vec(&req).unwrap();
-        vec.push(PROJECT_REQUEST_IDENTIFIER);
-        vec
+    pub fn new(id: Uuid) -> ProjectRequest {
+        ProjectRequest { id }
+    }
+
+    pub fn serialize(&self) -> Vec<u8> {
+        serialize(self, identifier::PROJECT_REQUEST)
     }
 }
 
-pub const PROJECT_IDENTIFIER: u8 = 1;
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Project {
     pub id: Uuid,
