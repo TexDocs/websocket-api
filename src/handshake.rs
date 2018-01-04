@@ -7,13 +7,13 @@ use serialize::serialize;
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Handshake {
-    protocol_version: &'static str
+    protocol_version: String
 }
 
 impl Handshake {
     pub fn new() -> Handshake {
         Handshake {
-            protocol_version: identifier::PROTOCOL_VERSION
+            protocol_version: String::from(identifier::PROTOCOL_VERSION)
         }
     }
 
