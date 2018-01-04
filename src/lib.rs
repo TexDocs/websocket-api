@@ -12,6 +12,7 @@ extern crate uuid;
 
 pub mod serialize;
 pub mod identifier;
+pub mod handshake;
 pub mod project;
 
 #[cfg(test)]

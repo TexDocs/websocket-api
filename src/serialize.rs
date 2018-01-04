@@ -5,6 +5,7 @@ use serde::{ Serialize, Deserialize };
 use stdweb::unstable::TryInto;
 #[cfg(feature = "wasm")]
 use stdweb::Value;
+#[cfg(feature = "wasm")]
 use std::fmt::Debug;
 
 pub fn serialize<T: Serialize>(to_serialize: &T, identifier: u8) -> Vec<u8> {
