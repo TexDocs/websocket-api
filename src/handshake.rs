@@ -7,7 +7,7 @@ use serialize::serialize;
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Handshake {
-    protocol_version: String
+    pub protocol_version: String
 }
 
 impl Handshake {
