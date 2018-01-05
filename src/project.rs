@@ -21,6 +21,26 @@ impl ProjectRequest {
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
+pub struct ProjectRequestError {
+    pub reason: String
+}
+
+impl ProjectRequestError {
+    pub fn new(msg: String) -> ProjectRequestError {
+        ProjectRequestError { reason: msg }
+    }
+
+    pub fn serialize(&self) -> Vec<u8> {
+        serialize(self, identifier::PROJECT_REQUEST_ERR)
+    }
+}
+
+#[cfg(feature = "wasm")]
+js_serializable!( ProjectRequestError );
+#[cfg(feature = "wasm")]
+js_deserializable!( ProjectRequestError );
+
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Project {
     pub id: Uuid,
     pub name: String

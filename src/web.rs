@@ -38,6 +38,7 @@ fn parse_msg(msg: Value) -> Value {
 
     match id {
         identifier::PROJECT => deserialize_to_js::<Project>(&data, String::from("Project")),
+        identifier::PROJECT_REQUEST_ERR => deserialize_to_js::<ProjectRequestError>(&data, String::from("ProjectRequestError")),
         identifier::HANDSHAKE_ACK => deserialize_to_js::<HandshakeAcknowledgement>(&data, String::from("HandshakeAcknowledgement")),
         identifier::HANDSHAKE_ERR => deserialize_to_js::<HandshakeError>(&data, String::from("HandshakeError")),
         _ => Null.try_into().unwrap()
