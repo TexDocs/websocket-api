@@ -10,7 +10,7 @@ extern crate serde_derive;
 extern crate rmp_serde as rmps;
 extern crate uuid;
 
-pub mod serde;
+pub use serde::Deserialize;
 
 pub mod serialize;
 pub mod identifier;
