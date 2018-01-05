@@ -33,6 +33,10 @@ impl Project {
             name: "SomeName".to_string()
         }
     }
+
+    pub fn serialize(&self) -> Vec<u8> {
+        serialize(self, identifier::PROJECT)
+    }
 }
 
 #[cfg(feature = "wasm")]
