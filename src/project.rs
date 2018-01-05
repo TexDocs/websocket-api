@@ -47,6 +47,10 @@ pub struct Project {
 }
 
 impl Project {
+    pub fn new(id: Uuid, name: String ) -> Project {
+        Project { id, name }
+    }
+
     pub fn mock() -> Project {
         Project {
             id: Uuid::parse_str("936DA01F9ABD4d9d80C702AF85C822A8").unwrap(),
