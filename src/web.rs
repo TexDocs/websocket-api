@@ -37,9 +37,9 @@ fn parse_msg(msg: Value) -> Value {
     let id = data.pop().unwrap();
 
     match id {
-        identifier::PROJECT => deserialize_to_js::<Project>(&data),
-        identifier::HANDSHAKE_ACK => deserialize_to_js::<HandshakeAcknowledgement>(&data),
-        identifier::HANDSHAKE_ERR => deserialize_to_js::<HandshakeError>(&data),
+        identifier::PROJECT => deserialize_to_js::<Project>(&data, String::from("Project")),
+        identifier::HANDSHAKE_ACK => deserialize_to_js::<HandshakeAcknowledgement>(&data, String::from("HandshakeAcknowledgement")),
+        identifier::HANDSHAKE_ERR => deserialize_to_js::<HandshakeError>(&data, String::from("HandshakeError")),
         _ => Null.try_into().unwrap()
     }
 }

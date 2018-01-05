@@ -19,7 +19,8 @@ pub fn deserialize<'a, T: Deserialize<'a>>(data: &'a Vec<u8>) -> Result<T, Error
 }
 
 #[cfg(feature = "wasm")]
-pub fn deserialize_to_js<'a, T: Deserialize<'a> + TryInto<Value>>(data: &'a Vec<u8>) -> Value where T::Error: Debug {
+pub fn deserialize_to_js<'a, T: Deserialize<'a> + TryInto<Value>>(data: &'a Vec<u8>, identifier: String) -> Value where T::Error: Debug {
     let deserialized: T = deserialize(data).unwrap();
-    deserialized.try_into().unwrap()
+    let value: Value = deserialized.try_into().unwrap();
+    vec![identifier.try_into().unwrap(), value].try_into().unwrap()
 }
