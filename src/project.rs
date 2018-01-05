@@ -43,18 +43,20 @@ js_deserializable!( ProjectRequestError );
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Project {
     pub id: Uuid,
-    pub name: String
+    pub name: String,
+    pub x: u8,
 }
 
 impl Project {
     pub fn new(id: Uuid, name: String ) -> Project {
-        Project { id, name }
+        Project { id, name, x: 255 }
     }
 
     pub fn mock() -> Project {
         Project {
             id: Uuid::parse_str("936DA01F9ABD4d9d80C702AF85C822A8").unwrap(),
-            name: "SomeName".to_string()
+            name: "SomeName".to_string(),
+            x: 255
         }
     }
 
