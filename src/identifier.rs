@@ -1,7 +1,7 @@
 pub const PROTOCOL_VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
 // --- Structure ---
-// 0bXXXXX___ = Group ID e.g. Handshake/Project/FILE
+// 0bXXXXX___ = Group ID e.g. Handshake/Project/File
 // 0b_____111 = Request
 // 0b_____0XX = Response
 // 0b_____1XX = Error (exclusive 0b_____111)
