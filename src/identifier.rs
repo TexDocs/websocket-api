@@ -21,3 +21,7 @@ pub const PROJECT_REQUEST_ERR: u8   = 0b00001_100;
 pub const FILE_REQUEST: u8          = 0b00010_111;
 pub const FILE: u8                  = 0b00010_000;
 pub const FILE_REQUEST_ERR: u8      = 0b00010_100;
+
+// User management
+pub const USER_JOINED: u8           = 0b00011_000;
+pub const USER_LEFT: u8             = 0b00011_001;

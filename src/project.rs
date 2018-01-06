@@ -45,13 +45,14 @@ js_deserializable!( ProjectRequestError );
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Project {
-    pub id: Uuid,
-    pub name: String
+    id: Uuid,
+    name: String,
+    connected_sessions: Vec<Uuid>
 }
 
 impl Project {
-    pub fn new(id: Uuid, name: String ) -> Project {
-        Project { id, name }
+    pub fn new(id: Uuid, name: String, connected_sessions: Vec<Uuid> ) -> Project {
+        Project { id, name, connected_sessions }
     }
 
     pub fn serialize(&self) -> Vec<u8> {

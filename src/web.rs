@@ -9,17 +9,26 @@ extern crate serde_derive;
 extern crate rmp_serde as rmps;
 extern crate uuid;
 
-mod serialize;
-mod identifier;
-mod project;
-mod handshake;
-
 use stdweb::unstable::TryInto;
 use stdweb::{Value, Null};
-use project::*;
-use handshake::*;
-use serialize::deserialize_to_js;
 use uuid::Uuid;
+
+// Deserialize to JS
+mod identifier;
+mod serialize;
+use serialize::deserialize_to_js;
+
+// Handshake
+mod handshake;
+use handshake::*;
+
+// Project
+mod project;
+use project::*;
+
+// User management
+mod user;
+use user::*;
 
 fn create_handshake() -> Value {
     Handshake::new().serialize().try_into().unwrap()
@@ -37,11 +46,20 @@ fn parse_msg(msg: Value) -> Value {
     let id = data.pop().unwrap();
 
     match id {
+        // Handshake
+        identifier::HANDSHAKE_ACK => deserialize_to_js::<HandshakeAcknowledgement>(&data, String::from("HandshakeAcknowledgement")),
+        identifier::HANDSHAKE_ERR => deserialize_to_js::<HandshakeError>(&data, String::from("HandshakeError")),
+
+        // Project
         identifier::PROJECT => deserialize_to_js::<Project>(&data, String::from("Project")),
         identifier::PROJECT_REQUEST_ERR => deserialize_to_js::<ProjectRequestError>(&data, String::from("ProjectRequestError")),
         identifier::FILE_TREE => deserialize_to_js::<FileTree>(&data, String::from("FileTree")),
-        identifier::HANDSHAKE_ACK => deserialize_to_js::<HandshakeAcknowledgement>(&data, String::from("HandshakeAcknowledgement")),
-        identifier::HANDSHAKE_ERR => deserialize_to_js::<HandshakeError>(&data, String::from("HandshakeError")),
+
+        // User management
+        identifier::USER_JOINED => deserialize_to_js::<UserJoined>(&data, String::from("UserJoined")),
+        identifier::USER_LEFT => deserialize_to_js::<UserLeft>(&data, String::from("UserLeft")),
+
+        // Else
         _ => Null.try_into().unwrap()
     }
 }
