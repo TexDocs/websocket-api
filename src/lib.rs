@@ -1,13 +1,13 @@
 #![feature(try_from)]
 #![feature(underscore_lifetimes)]
 
-#[cfg(feature = "wasm")]
-#[macro_use]
-extern crate stdweb;
+extern crate rmp_serde as rmps;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
-extern crate rmp_serde as rmps;
+#[cfg(feature = "wasm")]
+#[macro_use]
+extern crate stdweb;
 extern crate uuid;
 
 pub use serde::Deserialize;

@@ -8,12 +8,15 @@ use serialize::serialize;
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct ProjectRequest {
     pub id: Uuid,
-    pub track_file_tree: bool
+    pub track_file_tree: bool,
 }
 
 impl ProjectRequest {
     pub fn new(id: Uuid, track_file_tree: bool) -> ProjectRequest {
-        ProjectRequest { id, track_file_tree }
+        ProjectRequest {
+            id,
+            track_file_tree,
+        }
     }
 
     pub fn serialize(&self) -> Vec<u8> {
@@ -21,10 +24,9 @@ impl ProjectRequest {
     }
 }
 
-
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct ProjectRequestError {
-    pub reason: String
+    pub reason: String,
 }
 
 impl ProjectRequestError {
@@ -38,21 +40,24 @@ impl ProjectRequestError {
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( ProjectRequestError );
+js_serializable!(ProjectRequestError);
 #[cfg(feature = "wasm")]
-js_deserializable!( ProjectRequestError );
-
+js_deserializable!(ProjectRequestError);
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Project {
     id: Uuid,
     name: String,
-    connected_sessions: Vec<Uuid>
+    connected_sessions: Vec<Uuid>,
 }
 
 impl Project {
-    pub fn new(id: Uuid, name: String, connected_sessions: Vec<Uuid> ) -> Project {
-        Project { id, name, connected_sessions }
+    pub fn new(id: Uuid, name: String, connected_sessions: Vec<Uuid>) -> Project {
+        Project {
+            id,
+            name,
+            connected_sessions,
+        }
     }
 
     pub fn serialize(&self) -> Vec<u8> {
@@ -61,39 +66,40 @@ impl Project {
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( Project );
+js_serializable!(Project);
 #[cfg(feature = "wasm")]
-js_deserializable!( Project );
-
+js_deserializable!(Project);
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct FileTreeNode {
     nodes: Vec<FileTreeNode>,
-    content: Option<Uuid>
+    content: Option<Uuid>,
 }
 
 impl FileTreeNode {
     fn new() -> FileTreeNode {
         FileTreeNode {
             nodes: Vec::new(),
-            content: None
+            content: None,
         }
     }
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( FileTreeNode );
+js_serializable!(FileTreeNode);
 #[cfg(feature = "wasm")]
-js_deserializable!( FileTreeNode );
+js_deserializable!(FileTreeNode);
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct FileTree {
-    root: FileTreeNode
+    root: FileTreeNode,
 }
 
 impl FileTree {
     pub fn new() -> FileTree {
-        FileTree { root: FileTreeNode::new() }
+        FileTree {
+            root: FileTreeNode::new(),
+        }
     }
 
     pub fn serialize(&self) -> Vec<u8> {
@@ -102,6 +108,6 @@ impl FileTree {
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( FileTree );
+js_serializable!(FileTree);
 #[cfg(feature = "wasm")]
-js_deserializable!( FileTree );
+js_deserializable!(FileTree);

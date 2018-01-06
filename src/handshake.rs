@@ -7,13 +7,13 @@ use serialize::serialize;
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Handshake {
-    pub protocol_version: String
+    pub protocol_version: String,
 }
 
 impl Handshake {
     pub fn new() -> Handshake {
         Handshake {
-            protocol_version: String::from(identifier::PROTOCOL_VERSION)
+            protocol_version: String::from(identifier::PROTOCOL_VERSION),
         }
     }
 
@@ -23,14 +23,13 @@ impl Handshake {
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( Handshake );
+js_serializable!(Handshake);
 #[cfg(feature = "wasm")]
-js_deserializable!( Handshake );
-
+js_deserializable!(Handshake);
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct HandshakeError {
-    pub reason: String
+    pub reason: String,
 }
 
 impl HandshakeError {
@@ -44,14 +43,13 @@ impl HandshakeError {
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( HandshakeError );
+js_serializable!(HandshakeError);
 #[cfg(feature = "wasm")]
-js_deserializable!( HandshakeError );
-
+js_deserializable!(HandshakeError);
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct HandshakeAcknowledgement {
-    pub session_id: Uuid
+    pub session_id: Uuid,
 }
 
 impl HandshakeAcknowledgement {
@@ -65,6 +63,6 @@ impl HandshakeAcknowledgement {
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( HandshakeAcknowledgement );
+js_serializable!(HandshakeAcknowledgement);
 #[cfg(feature = "wasm")]
-js_deserializable!( HandshakeAcknowledgement );
+js_deserializable!(HandshakeAcknowledgement);

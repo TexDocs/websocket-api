@@ -1,6 +1,6 @@
-use rmps::{ to_vec, from_slice };
+use rmps::{from_slice, to_vec};
 use rmps::decode::Error;
-use serde::{ Serialize, Deserialize };
+use serde::{Deserialize, Serialize};
 #[cfg(feature = "wasm")]
 use stdweb::unstable::TryInto;
 #[cfg(feature = "wasm")]
@@ -19,8 +19,16 @@ pub fn deserialize<'a, T: Deserialize<'a>>(data: &'a Vec<u8>) -> Result<T, Error
 }
 
 #[cfg(feature = "wasm")]
-pub fn deserialize_to_js<'a, T: Deserialize<'a> + TryInto<Value>>(data: &'a Vec<u8>, identifier: String) -> Value where T::Error: Debug {
+pub fn deserialize_to_js<'a, T: Deserialize<'a> + TryInto<Value>>(
+    data: &'a Vec<u8>,
+    identifier: String,
+) -> Value
+where
+    T::Error: Debug,
+{
     let deserialized: T = deserialize(data).unwrap();
     let value: Value = deserialized.try_into().unwrap();
-    vec![identifier.try_into().unwrap(), value].try_into().unwrap()
+    vec![identifier.try_into().unwrap(), value]
+        .try_into()
+        .unwrap()
 }

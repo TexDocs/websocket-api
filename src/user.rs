@@ -7,7 +7,7 @@ use serialize::serialize;
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct UserJoined {
-    session_id: Uuid
+    session_id: Uuid,
 }
 
 impl UserJoined {
@@ -21,14 +21,13 @@ impl UserJoined {
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( UserJoined );
+js_serializable!(UserJoined);
 #[cfg(feature = "wasm")]
-js_deserializable!( UserJoined );
-
+js_deserializable!(UserJoined);
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct UserLeft {
-    session_id: Uuid
+    session_id: Uuid,
 }
 
 impl UserLeft {
@@ -42,6 +41,6 @@ impl UserLeft {
 }
 
 #[cfg(feature = "wasm")]
-js_serializable!( UserLeft );
+js_serializable!(UserLeft);
 #[cfg(feature = "wasm")]
-js_deserializable!( UserLeft );
+js_deserializable!(UserLeft);

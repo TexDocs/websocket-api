@@ -6,7 +6,7 @@ before_script:
   - export PATH="$PATH:$HOME/.cargo/bin"
   - rustup target add wasm32-unknown-unknown
   - rustup show
-  - (which rustfmt && cargo fmt -- --write-mode=plain) || cargo install rustfmt-nightly --force
+  - (which rustfmt && cargo fmt --version) || cargo install rustfmt-nightly --force
   - which cargo-web || cargo install cargo-web
 script:
   - cargo fmt -- --write-mode=diff
