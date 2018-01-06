@@ -4,10 +4,12 @@ rust:
 cache: cargo
 before_script:
   - export PATH="$PATH:$HOME/.cargo/bin"
+  - rustup target add wasm32-unknown-unknown
   - which rustfmt || cargo install rustfmt-nightly
 script:
   - cargo fmt -- --write-mode=diff
   - cargo build --release --target wasm32-unknown-unknown --all-targets
+  - cargo build --release --no-default-features --features "create_project"
   - cargo test
 notifications:
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
