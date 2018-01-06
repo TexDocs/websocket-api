@@ -25,11 +25,11 @@ fn create_handshake() -> Value {
     Handshake::new().serialize().try_into().unwrap()
 }
 
-fn request_project(id: Value) -> Value {
+fn request_project(id: Value, track_file_tree: Value) -> Value {
     let id: String = id.try_into().unwrap();
     let parsed_id = Uuid::parse_str(&id).unwrap();
 
-    ProjectRequest::new(parsed_id).serialize().try_into().unwrap()
+    ProjectRequest::new(parsed_id, track_file_tree.try_into().unwrap()).serialize().try_into().unwrap()
 }
 
 fn parse_msg(msg: Value) -> Value {
@@ -39,6 +39,7 @@ fn parse_msg(msg: Value) -> Value {
     match id {
         identifier::PROJECT => deserialize_to_js::<Project>(&data, String::from("Project")),
         identifier::PROJECT_REQUEST_ERR => deserialize_to_js::<ProjectRequestError>(&data, String::from("ProjectRequestError")),
+        identifier::FILE_TREE => deserialize_to_js::<FileTree>(&data, String::from("FileTree")),
         identifier::HANDSHAKE_ACK => deserialize_to_js::<HandshakeAcknowledgement>(&data, String::from("HandshakeAcknowledgement")),
         identifier::HANDSHAKE_ERR => deserialize_to_js::<HandshakeError>(&data, String::from("HandshakeError")),
         _ => Null.try_into().unwrap()

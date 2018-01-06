@@ -7,18 +7,20 @@ use serialize::serialize;
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct ProjectRequest {
-    pub id: Uuid
+    pub id: Uuid,
+    pub track_file_tree: bool
 }
 
 impl ProjectRequest {
-    pub fn new(id: Uuid) -> ProjectRequest {
-        ProjectRequest { id }
+    pub fn new(id: Uuid, track_file_tree: bool) -> ProjectRequest {
+        ProjectRequest { id, track_file_tree }
     }
 
     pub fn serialize(&self) -> Vec<u8> {
         serialize(self, identifier::PROJECT_REQUEST)
     }
 }
+
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct ProjectRequestError {
@@ -40,24 +42,16 @@ js_serializable!( ProjectRequestError );
 #[cfg(feature = "wasm")]
 js_deserializable!( ProjectRequestError );
 
+
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 pub struct Project {
     pub id: Uuid,
-    pub name: String,
-    pub x: u8,
+    pub name: String
 }
 
 impl Project {
     pub fn new(id: Uuid, name: String ) -> Project {
-        Project { id, name, x: 255 }
-    }
-
-    pub fn mock() -> Project {
-        Project {
-            id: Uuid::parse_str("936DA01F9ABD4d9d80C702AF85C822A8").unwrap(),
-            name: "SomeName".to_string(),
-            x: 255
-        }
+        Project { id, name }
     }
 
     pub fn serialize(&self) -> Vec<u8> {
@@ -69,3 +63,44 @@ impl Project {
 js_serializable!( Project );
 #[cfg(feature = "wasm")]
 js_deserializable!( Project );
+
+
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
+pub struct FileTreeNode {
+    nodes: Vec<FileTreeNode>,
+    content: Option<Uuid>
+}
+
+impl FileTreeNode {
+    fn new() -> FileTreeNode {
+        FileTreeNode {
+            nodes: Vec::new(),
+            content: None
+        }
+    }
+}
+
+#[cfg(feature = "wasm")]
+js_serializable!( FileTreeNode );
+#[cfg(feature = "wasm")]
+js_deserializable!( FileTreeNode );
+
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
+pub struct FileTree {
+    root: FileTreeNode
+}
+
+impl FileTree {
+    pub fn new() -> FileTree {
+        FileTree { root: FileTreeNode::new() }
+    }
+
+    pub fn serialize(&self) -> Vec<u8> {
+        serialize(self, identifier::FILE_TREE)
+    }
+}
+
+#[cfg(feature = "wasm")]
+js_serializable!( FileTree );
+#[cfg(feature = "wasm")]
+js_deserializable!( FileTree );
