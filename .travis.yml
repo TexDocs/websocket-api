@@ -7,9 +7,10 @@ before_script:
   - rustup target add wasm32-unknown-unknown
   - rustup show
   - (which rustfmt && cargo fmt -- --write-mode=plain) || cargo install rustfmt-nightly --force
+  - which cargo-web || cargo install cargo-web
 script:
   - cargo fmt -- --write-mode=diff
-  - cargo build --release --target wasm32-unknown-unknown --all-targets
+  - cargo web build --target-webasm --bin websocket_api_web --release
   - cargo build --release --no-default-features --features "create_project"
   - cargo test
 notifications:
