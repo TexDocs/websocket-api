@@ -9,8 +9,8 @@ before_script:
   - which cargo-web || cargo install cargo-web
 script:
   - cargo fmt -- --write-mode=diff
-  - cargo web build --target-webasm --bin websocket_api_web --release
-  - cargo build --release --no-default-features --features "create_project"
+  - cargo web build --target-webasm --bin websocket_api_web
+  - cargo build --no-default-features --features "create_project"
   - cargo test
 notifications:
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
